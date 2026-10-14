@@ -1,12 +1,10 @@
-
-package me.santiagorojasfacebook
+package me.santiagorojasfacebook.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,7 +21,10 @@ import androidx.compose.ui.unit.sp
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FacebookRegisterScreen() {
+fun FacebookRegisterScreen(
+    onClickBack: () -> Unit = {},
+    onClickIniciarSesion: () -> Unit = {}
+) {
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var emailOrPhone by remember { mutableStateOf("") }
@@ -38,8 +39,14 @@ fun FacebookRegisterScreen() {
             TopAppBar(
                 title = { },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
-
+                    IconButton(onClick = {
+                        onClickBack()
+                    }) {
+                        Text(
+                            text = "Ir Atrás",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -58,7 +65,6 @@ fun FacebookRegisterScreen() {
         ) {
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Encabezado
             Text(
                 text = "Crea una cuenta",
                 fontSize = 24.sp,
@@ -71,7 +77,6 @@ fun FacebookRegisterScreen() {
                 modifier = Modifier.padding(bottom = 24.dp)
             )
 
-            // Nombre y Apellido
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -96,7 +101,6 @@ fun FacebookRegisterScreen() {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Correo o teléfono
             OutlinedTextField(
                 value = emailOrPhone,
                 onValueChange = { emailOrPhone = it },
@@ -111,7 +115,6 @@ fun FacebookRegisterScreen() {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Contraseña
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -127,7 +130,6 @@ fun FacebookRegisterScreen() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Fecha de nacimiento
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "Fecha de nacimiento",
@@ -147,7 +149,6 @@ fun FacebookRegisterScreen() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Selección de género
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "Género",
@@ -184,7 +185,6 @@ fun FacebookRegisterScreen() {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Botón Registrarse
             Button(
                 onClick = { /* Acción de registro */ },
                 colors = ButtonDefaults.buttonColors(containerColor = FacebookBlue),
@@ -202,8 +202,9 @@ fun FacebookRegisterScreen() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Ir a Iniciar sesión
-            TextButton(onClick = {}) {
+            TextButton(onClick = {
+                onClickIniciarSesion()
+            }) {
                 Text(
                     text = "¿Ya tienes una cuenta?",
                     color = FacebookBlue

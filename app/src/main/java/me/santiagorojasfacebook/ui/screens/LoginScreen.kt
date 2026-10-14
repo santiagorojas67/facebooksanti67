@@ -1,19 +1,14 @@
+package me.santiagorojasfacebook.ui.screens
 
-package me.santiagorojasfacebook
-
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -24,17 +19,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-// Colores oficiales de Facebook
 val FacebookBlue = Color(0xFF1877F2)
-private val FacebookLightBlue = Color(0xFF42B72A) // verde para "Crear cuenta"
-private val FacebookGray = Color(0xFFF0F2F5)
+private val FacebookLightBlue = Color(0xFF42B72A)
 private val FacebookBorderGray = Color(0xFFCCD0D5)
 private val FacebookTextGray = Color(0xFF606770)
-private val FacebookDarkText = Color(0xFF1C1E21)
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun FacebookLoginScreen() {
+fun FacebookLoginScreen(
+    onClickRegister: () -> Unit = {},
+    onClickIniciarSesion: () -> Unit = {}
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -49,7 +44,6 @@ fun FacebookLoginScreen() {
     ) {
         Spacer(modifier = Modifier.height(80.dp))
 
-        // Logo de Facebook (texto estilizado)
         Text(
             text = "facebook",
             color = FacebookBlue,
@@ -60,7 +54,6 @@ fun FacebookLoginScreen() {
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        // Campo de Email/Teléfono
         FacebookTextField(
             value = email,
             onValueChange = { email = it },
@@ -71,7 +64,6 @@ fun FacebookLoginScreen() {
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Campo de Contraseña
         FacebookTextField(
             value = password,
             onValueChange = { password = it },
@@ -87,13 +79,14 @@ fun FacebookLoginScreen() {
 
         // Botón Iniciar sesión
         Button(
-            onClick = {  },
+            onClick = {
+                onClickIniciarSesion()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
             colors = ButtonDefaults.buttonColors(containerColor = FacebookBlue),
-            shape = RoundedCornerShape(6.dp),
-            //enabled = email.isNotBlank() && password.isNotBlank()
+            shape = RoundedCornerShape(6.dp)
         ) {
             Text(
                 text = "Iniciar sesión",
@@ -105,7 +98,6 @@ fun FacebookLoginScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Link "¿Olvidaste tu contraseña?"
         TextButton(onClick = {}) {
             Text(
                 text = "¿Olvidaste tu contraseña?",
@@ -116,7 +108,6 @@ fun FacebookLoginScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Divisor "O"
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -143,7 +134,9 @@ fun FacebookLoginScreen() {
 
         // Botón Crear cuenta nueva
         Button(
-            onClick = {},
+            onClick = {
+                onClickRegister()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -160,7 +153,6 @@ fun FacebookLoginScreen() {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // Footer con marca registrada
         Text(
             text = "Meta © 2024",
             modifier = Modifier.padding(bottom = 24.dp),
