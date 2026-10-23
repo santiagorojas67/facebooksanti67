@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import me.santiagorojasfacebook.ui.screens.FacebookForgotPasswordScreen
 import me.santiagorojasfacebook.ui.screens.FacebookLoginScreen
 import me.santiagorojasfacebook.ui.screens.FacebookRegisterScreen
 import me.santiagorojasfacebook.ui.screens.FeedScreen
@@ -32,6 +33,9 @@ class MainActivity : ComponentActivity() {
                         },
                         onClickIniciarSesion = {
                             myNavController.navigate("feed")
+                        },
+                        onClickForgotPassword = {
+                            myNavController.navigate("forgot")
                         }
                     )
                 }
@@ -42,6 +46,16 @@ class MainActivity : ComponentActivity() {
                         },
                         onClickIniciarSesion = {
                             myNavController.popBackStack()
+                        }
+                    )
+                }
+                composable(route = "forgot") {
+                    FacebookForgotPasswordScreen(
+                        onClickBack = {
+                            myNavController.popBackStack()
+                        },
+                        onClickSearch = { emailOrPhone ->
+                            // Aquí va la lógica de búsqueda de la cuenta
                         }
                     )
                 }
